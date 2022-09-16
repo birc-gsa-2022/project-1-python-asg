@@ -107,8 +107,9 @@ I had some trouble jumping backwards (or rather figuring out that i had to repet
 ### Experiments that verifies the correctness of your implementations.
 
 ANSWER:
-I simulate a bunch of random DNA sequences of varying lengths (representing ref seqs) and from this sequence sampled random intervals of length 1-100 (representing read seqs. I then checked if my implentations returned these intervals/positions correctly.
-Furthermore i similarily sampled ref/reads while feeding these sequences to both algorithms simultaneously. The algorithms returned the same result for all iterations (500000; see src/runtime_comparison.py).
+I simulate a bunch of random DNA sequences of varying lengths (representing ref seqs), and from these sequence sampled random intervals of length 1-20 representing read seqs. These samples were then used to test if my implentations returned the exact intervals/positions correctly (compared to the builtin find() method; see src/runtime_comparison.py).
+Similarily, i sampled ref/reads as described above while feeding these samples to both algorithms simultaneously. The algorithms returned the same result for all iterations (500000; see src/runtime_comparison.py).
+Furthermore both algorithms were tested for varius empty input cases (e.g. empty/empty and non-empty/empty). A coverage test was performed using coverage.py (https://coverage.readthedocs.io/en/6.4.4/). For this purpuse a fasta file containing 5 sequences and a corresponding simple fastq file containing 100 reads were generated. The naive and lin algorithms had respectivly 95% and 94% coverage where all missing lines (naive: 15, 17, 21, 23; lin: 16, 32, 42, 44, 48, 50) was involved in early returnings as response to empty/incompatable inputs. 
 
 
 ### Experiments validating the running time.
@@ -119,13 +120,6 @@ For this section, you should address the following:
 
 * An experiment that verifies that your implementations of `lin` use no more time than O(n+m) to find all occurrences of a given pattern in a text. Remember to explain your choice of test data. What are “best” and “worst” case inputs?
 
-You can insert pictures here like this:
-
-```
-![](path/to/fig)
-```
-
-I am not ready to share my own results yet, so I will just show you a fast scooter.
-
 ![](figs/runtimes.png)
+
 
