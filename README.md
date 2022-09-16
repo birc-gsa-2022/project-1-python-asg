@@ -58,9 +58,15 @@ The project should be in groups of 2–3 students. It will not be graded.
 
 Write parsers for Simple-FASTA and Simple-FASTQ if you have not done so already.
 
+ANSWER:
+They are part of both the lin.py and naive.py scripts (read_fasta; read_fastq)
+
 ## Part 2: simulating data for evaluation
 
 For testing the running time as functions of n and m, you should also write code for generating Simple-FASTA and Simple-FASTQ files (with appropriate properties for your tests).
+
+ANSWER:
+See src/runtime_comparison.py (and figure in the bottumn (red=naive;blue=lin))
 
 ## Part 2: mappers
 
@@ -74,25 +80,36 @@ Now write the tools for exact pattern matching. You can use the naive algorithm 
 
 You might not have to sort the output, if you run through reads
 
+ANSWER:
+See src/naive.py and src/lin.py
+
 ## Evaluation
 
 Implement the two algorithms in two tools, `naive` and `lin`, that must be present at the root of the repository once they are built. The test setup checks that they give the correct output on selected data, but you should still carefully test them.
 
 Once you have implemented the tools, fill out the report below. 
 
+ANSWER:
+See src/naive.py and src/lin.py
+
 ## Report
 
 ### Insights you may have had while implementing and comparing the algorithms. 
 
-*Describe this here.*
+ANSWER:
+Finally understood how border-arrays enables efficient string-searching.
 
 ### Problems encountered if any. 
 
-*Describe this here.*
+ANSWER:
+I had some trouble jumping backwards (or rather figuring out that i had to repetitively jump back until i reached match) in my border-array (finally fixed it with a while-loop).
 
 ### Experiments that verifies the correctness of your implementations.
 
-*Describe this here.*
+ANSWER:
+I simulate a bunch of random DNA sequences of varying lengths (representing ref seqs) and from this sequence sampled random intervals of length 1-100 (representing read seqs. I then checked if my implentations returned these intervals/positions correctly.
+Furthermore i similarily sampled ref/reads while feeding these sequences to both algorithms simultaneously. The algorithms returned the same result for all iterations (500000; see src/runtime_comparison.py).
+
 
 ### Experiments validating the running time.
 
@@ -110,5 +127,5 @@ You can insert pictures here like this:
 
 I am not ready to share my own results yet, so I will just show you a fast scooter.
 
-![](figs/scooter.jpg)
+![](figs/runtimes.png)
 
