@@ -130,6 +130,7 @@ Worst case for the naive is when n and m are all repetitions of the same charact
 
 Runtimes naive best-case:
 ![](figs/Naive_best_case.png)
+
 Runtimes naive worst-case:
 ![](figs/Naive_worst_case.png)
 
