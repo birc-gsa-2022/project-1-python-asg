@@ -117,10 +117,10 @@ For this section, you should address the following:
 ANSWER:
 
 Runtimes for varying lengths of m and n for the naive algorithm:
-![](Naive_runtimes.png)
+![](figs/Naive_runtimes.png)
 
 Runtimes for varying lengths of m and n for the linear algorithm:
-![](Linear_runtimes.png)
+![](figs/Linear_runtimes.png)
 
 
 * An experiment that verifies that your implementation of `naive` uses no more time than O(nm) to find all occurrences of a given pattern in a text. Remember to explain your choice of test data. What are “best” and “worst” case inputs? 
@@ -129,9 +129,9 @@ ANSWER:
 Worst case for the naive is when n and m are all repetitions of the same character e.g. n = 'AAAAAAAAAAAAA' m = 'AAA'. In this case the algorithm will have to compare all characters from both strings against each other (runtime = mn). Oppositly if n and m are all different e.g. n = 'AAAAAAAAAAAAA' m = 'TTT' the algorithm will only have to compare the first character of m against all n (runtime = n). 
 
 Runtimes naive best-case:
-![](Naive_best_case.png)
+![](figs/Naive_best_case.png)
 Runtimes naive worst-case:
-![](Naive_worst_case.png)
+![](figs/Naive_worst_case.png)
 
 * An experiment that verifies that your implementations of `lin` use no more time than O(n+m) to find all occurrences of a given pattern in a text. Remember to explain your choice of test data. What are “best” and “worst” case inputs?
 
