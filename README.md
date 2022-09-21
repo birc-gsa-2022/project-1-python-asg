@@ -133,7 +133,7 @@ Runtimes naive best-case:
 
 Runtimes naive worst-case:
 
-![](figs/Naive_worst_case1.png)
+![](figs/Naive_worst_case.png)
 
 * An experiment that verifies that your implementations of `lin` use no more time than O(n+m) to find all occurrences of a given pattern in a text. Remember to explain your choice of test data. What are “best” and “worst” case inputs?
 
