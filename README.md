@@ -59,14 +59,15 @@ The project should be in groups of 2–3 students. It will not be graded.
 Write parsers for Simple-FASTA and Simple-FASTQ if you have not done so already.
 
 ANSWER:
-They are part of both the lin.py and naive.py scripts (read_fasta; read_fastq)
+Both parsers are part of the lin.py and naive.py scripts (read_fasta(); read_fastq())
 
 ## Part 2: simulating data for evaluation
 
 For testing the running time as functions of n and m, you should also write code for generating Simple-FASTA and Simple-FASTQ files (with appropriate properties for your tests).
 
 ANSWER:
-See src/runtime_comparison.py (and figure in the bottumn (red=naive;blue=lin))
+See src/SEQsimulator.py (was used for implementation of the algorithm).
+(Note: fasta and fastq generators (provided by teacher) were used for final test set generation (See data_for_testing/simulate_simple_fasta.py; data_for_testing/simulate_simple_fastq.py))
 
 ## Part 2: mappers
 
@@ -78,10 +79,8 @@ Now write the tools for exact pattern matching. You can use the naive algorithm 
 > diff naive.sam lin.sam
 ```
 
-You might not have to sort the output, if you run through reads
-
 ANSWER:
-See src/naive.py and src/lin.py
+See src/naive.py (naive_algorithm()) and src/lin.py (ba_algorithm())
 
 ## Evaluation
 
@@ -97,29 +96,50 @@ See src/naive.py and src/lin.py
 ### Insights you may have had while implementing and comparing the algorithms. 
 
 ANSWER:
-Finally understood how border-arrays enables efficient string-searching.
+Finally understood how border-arrays enables efficient/linear string-searching.
 
 ### Problems encountered if any. 
 
 ANSWER:
-I had some trouble jumping backwards (or rather figuring out that i had to repetitively jump back until i reached match) in my border-array (finally fixed it with a while-loop).
+I had some trouble jumping backwards (or rather figuring out that i had to repetitively jump back until i reached match) in my border-array (kind of a brain-fart i know) (finally fixed it with a while-loop). 
 
 ### Experiments that verifies the correctness of your implementations.
 
 ANSWER:
-I simulate a bunch of random DNA sequences of varying lengths (representing ref seqs), and from these sequence sampled random intervals of length 1-20 representing read seqs. These samples were then used to test if my implentations returned the exact intervals/positions correctly (compared to the builtin find() method; see src/runtime_comparison.py).
-Similarily, i sampled ref/reads as described above while feeding these samples to both algorithms simultaneously. The algorithms returned the same result for all iterations (500000; see src/runtime_comparison.py).
-Furthermore both algorithms were tested for varius empty input cases (e.g. empty/empty and non-empty/empty). A coverage test was performed using coverage.py (https://coverage.readthedocs.io/en/6.4.4/). For this purpuse a fasta file containing 5 sequences and a corresponding simple fastq file containing 100 reads were generated. The naive and lin algorithms had respectivly 95% and 94% coverage where all missing lines (naive: 15, 17, 21, 23; lin: 16, 32, 42, 44, 48, 50) was involved in early returnings as response to empty/incompatable inputs. 
+I simulate a bunch of random DNA sequences of varying lengths (50-100 nucleotides; representing ref seqs), and from these sequence sampled random intervals of length 1-20 representing exact-read seqs. These samples were then used to test if my implentations returned the exact intervals/positions (compared to re.findall(), see first section of src/runtime_comparison.py) through 500000 iterations. 
+Hereafter i similarily sampled ref/reads while feeding these to both algorithms (naive vs lin) simultaneously. The algorithms returned the same result for all iterations (500000; see src/runtime_comparison.py). A coverage test was performed using coverage.py (https://coverage.readthedocs.io/en/6.4.4/). For this purpuse a fasta file containing 5 sequences and a corresponding simple fastq file containing 100 reads were generated (using scripts provided by teacher in previus week, see data_for_testing/simulate_simple_fasta.py; data_for_testing/simulate_simple_fastq.py). The naive and lin algorithms had respectivly 95% and 94% coverage where all missing lines (naive: 15, 17, 21, 23; lin: 16, 32, 42, 44, 48, 50) was involved in early returnings as response to empty/incompatable inputs. These responses were then tested manually i.e. both algorithms were tested for varius empty input cases (empty/empty and non-empty/empty etc.) Sequences containing first and last 10 nucleotides repeatedly was used to test 'takeoff and landing'. 
 
 
 ### Experiments validating the running time.
 
 For this section, you should address the following:
 
+ANSWER:
+
+Runtimes for varying lengths of m and n for the naive algorithm:
+![](Naive_runtimes.png)
+
+Runtimes for varying lengths of m and n for the linear algorithm:
+![](Linear_runtimes.png)
+
+
 * An experiment that verifies that your implementation of `naive` uses no more time than O(nm) to find all occurrences of a given pattern in a text. Remember to explain your choice of test data. What are “best” and “worst” case inputs? 
+
+ANSWER:
+Worst case for the naive is when n and m are all repetitions of the same character e.g. n = 'AAAAAAAAAAAAA' m = 'AAA'. In this case the algorithm will have to compare all characters from both strings against each other (runtime = mn). Oppositly if n and m are all different e.g. n = 'AAAAAAAAAAAAA' m = 'TTT' the algorithm will only have to compare the first character of m against all n (runtime = n). 
+
+Runtimes naive best-case:
+![](Naive_best_case.png)
+Runtimes naive worst-case:
+![](Naive_worst_case.png)
 
 * An experiment that verifies that your implementations of `lin` use no more time than O(n+m) to find all occurrences of a given pattern in a text. Remember to explain your choice of test data. What are “best” and “worst” case inputs?
 
-![](figs/runtimes.png)
+ANSWER:
+Best/worst cases are harder to compute for the linear (KMP) algorithm.
+
+Best case is a situation where we always move the total length of m (runtime = n + n/m).
+
+Worst case is a situation with as many character comparings (matches + mismatches) as possible (between m and n) and will happen in a situation like n = 'AAAABAAAABAAAABAAAAB' m = 'AAAAA'. Here we will move up the border which will afterwards point us to a series of wrong position (runtime = m+n).
 
 

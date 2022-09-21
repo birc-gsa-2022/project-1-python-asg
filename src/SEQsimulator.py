@@ -5,7 +5,6 @@ def simulate_string(m):
     
     Example:
     simulate_string(20)
-    >>> 'ATGGGATGGGACACGCGGCT'
     
     """
     DNA = 'ACGT'
@@ -18,7 +17,7 @@ def get_exact_read(DNA_seq:str, n:int):
     
     Example:
     get_exact_read('GCTGAATCTATTTATGGTGG',5)
-    >>> 'TATGG'
+
     """
     assert n < len(DNA_seq), 'm must be smaller or equal to length of DNA_seq'
     idx = random.randint(0,len(DNA_seq)-n)
